@@ -1,0 +1,12 @@
+body {
+  background:#0b0f17;
+  color:#e8eefc;
+  font-family: system-ui;
+  text-align:center;
+  padding:80px;
+}
+a {
+  color:#2a5bff;
+  font-size:20px;
+}
+
