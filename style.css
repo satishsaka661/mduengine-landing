@@ -93,3 +93,34 @@ h2{font-size:30px;margin:0 0 10px}
   .grid3{grid-template-columns:1fr}
   .grid2{grid-template-columns:1fr}
 }
+.cta.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.cred-links {
+  text-align: center;
+  line-height: 1.4;
+}
+
+.cred-items {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cred-items .dot {
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .cta.center {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
