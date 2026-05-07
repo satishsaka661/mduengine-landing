@@ -6,6 +6,346 @@
   <title>MDU Engine — Decision Support for Paid Media</title>
   <meta name="description" content="MDU Engine is a fail-closed decision-support system for paid media. Evaluate when to SCALE, HOLD, REDUCE, or BLOCK under uncertainty with explainable, auditable outputs." />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .brand {
+      font-weight: 800;
+      font-size: 1.3rem;
+      background: linear-gradient(90deg, #1E90FF 0%, #FF6B2B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.3px;
+    }
+
+    .recognition {
+      padding: 4rem 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .recognition-label {
+      text-align: center;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #7A9BC0;
+      margin-bottom: 2.5rem;
+      font-weight: 500;
+    }
+
+    .recognition-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .recognition-card {
+      background: rgba(30,144,255,0.05);
+      border: 1px solid rgba(30,144,255,0.15);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .recognition-card:hover {
+      border-color: rgba(30,144,255,0.35);
+      transform: translateY(-2px);
+    }
+
+    .recognition-card .rec-type {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #FF6B2B;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .recognition-card h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #E8F4FF;
+      margin-bottom: 0.4rem;
+      line-height: 1.4;
+    }
+
+    .recognition-card p {
+      font-size: 0.82rem;
+      color: #7A9BC0;
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+
+    .recognition-card a {
+      font-size: 0.8rem;
+      color: #1E90FF;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .recognition-card a:hover {
+      color: #4AABFF;
+      text-decoration: underline;
+    }
+
+    .founder {
+      padding: 5rem 0;
+      background: rgba(30,144,255,0.03);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .founder-inner {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .founder-photo-wrap {
+      position: relative;
+    }
+
+    .founder-photo-wrap img {
+      width: 100%;
+      border-radius: 16px;
+      display: block;
+      border: 2px solid rgba(30,144,255,0.2);
+    }
+
+    .founder-content h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: #E8F4FF;
+    }
+
+    .founder-title {
+      font-size: 0.88rem;
+      color: #FF6B2B;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    .founder-bio {
+      font-size: 0.95rem;
+      color: #A8C4E0;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .founder-stats {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.75rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .founder-stat .stat-num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #1E90FF, #FF6B2B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+
+    .founder-stat .stat-label {
+      font-size: 0.75rem;
+      color: #7A9BC0;
+      margin-top: 0.15rem;
+    }
+
+    .founder-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .founder-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    .founder-link:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    .founder-link.linkedin {
+      background: rgba(10,102,194,0.2);
+      color: #4AABFF;
+      border: 1px solid rgba(10,102,194,0.4);
+    }
+
+    .founder-link.youtube {
+      background: rgba(255,0,0,0.1);
+      color: #FF6B6B;
+      border: 1px solid rgba(255,0,0,0.25);
+    }
+
+    .founder-link.techstory {
+      background: rgba(30,144,255,0.1);
+      color: #4AABFF;
+      border: 1px solid rgba(30,144,255,0.25);
+    }
+
+    .founder-link.research {
+      background: rgba(255,107,43,0.1);
+      color: #FFB347;
+      border: 1px solid rgba(255,107,43,0.25);
+    }
+
+    .testimonial-section {
+      padding: 4rem 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .testimonial-label {
+      text-align: center;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #7A9BC0;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    .testimonial-card {
+      background: rgba(30,144,255,0.04);
+      border: 1px solid rgba(30,144,255,0.12);
+      border-left: 3px solid #1E90FF;
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      max-width: 820px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '\201C';
+      font-size: 5rem;
+      color: rgba(30,144,255,0.15);
+      position: absolute;
+      top: -0.5rem;
+      left: 1.5rem;
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+
+    .testimonial-text {
+      font-size: 1rem;
+      color: #C8DFF4;
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1E90FF, #FF6B2B);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .testimonial-author-info strong {
+      display: block;
+      font-size: 0.9rem;
+      color: #E8F4FF;
+      font-weight: 600;
+    }
+
+    .testimonial-author-info span {
+      font-size: 0.78rem;
+      color: #7A9BC0;
+    }
+
+    .media-strip {
+      padding: 2.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+    }
+
+    .media-strip-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #7A9BC0;
+      margin-bottom: 1.25rem;
+    }
+
+    .media-badges {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .media-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: #A8C4E0;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .media-badge:hover {
+      border-color: rgba(30,144,255,0.4);
+      color: #E8F4FF;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #1E90FF;
+      flex-shrink: 0;
+    }
+
+    .badge-dot.orange { background: #FF6B2B; }
+    .badge-dot.green { background: #00C896; }
+    .badge-dot.amber { background: #FFB347; }
+    .badge-dot.red { background: #FF4444; }
+
+    @media (max-width: 768px) {
+      .founder-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .founder-photo-wrap {
+        max-width: 200px;
+        margin: 0 auto;
+      }
+      .founder-stats { gap: 1.25rem; }
+      .recognition-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 
 <body>
@@ -17,6 +357,7 @@
       <a href="#product">Product</a>
       <a href="#features">Features</a>
       <a href="#trust">Trust</a>
+      <a href="#founder">About</a>
       <a class="btn" href="https://app.mduengine.com" target="_blank" rel="noreferrer">Launch App</a>
     </div>
   </div>
@@ -29,22 +370,18 @@
   <div class="wrap hero-grid">
     <div>
       <div class="pill">Decision-support • Fail-closed by design • Explainable • Risk-aware</div>
-
       <h1>Decision-support for paid media under uncertainty.</h1>
-
       <p class="sub">
         Upload Meta & Google exports, validate signal quality, and receive a clear
         <strong>decision outcome</strong> — <strong>SCALE / HOLD / REDUCE / BLOCK</strong> —
         with structured rationale, guardrails, and an audit snapshot.
       </p>
-
       <div class="cta">
         <a class="btn primary" href="https://app.mduengine.com" target="_blank" rel="noreferrer">
           Open Decision Engine
         </a>
         <a class="btn ghost" href="#product">See how it works</a>
       </div>
-
       <div class="fine">
         Built by Satish Saka • Public Decision Engine • MIT License • Asia-South1
       </div>
@@ -62,6 +399,55 @@
       <div class="note">
         MDU Engine provides guidance only. All decisions remain the responsibility of the operator.
         The system does not execute changes or provide financial or investment advice.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGNITION -->
+<section class="recognition">
+  <div class="wrap">
+    <div class="recognition-label">Research · Academic Validation · Media Coverage</div>
+    <div class="recognition-grid">
+      <div class="recognition-card">
+        <div class="rec-type">Published Research</div>
+        <h4>Journal of Emerging Technologies and Innovative Research (JETIR)</h4>
+        <p>
+          "A Decision-Support Framework for Optimisation Under Uncertainty in
+          Data-Driven Growth Systems" — peer-reviewed and published, ISSN 2349-5162.
+        </p>
+        <a href="https://www.jetir.org" target="_blank" rel="noopener">View Journal →</a>
+      </div>
+
+      <div class="recognition-card">
+        <div class="rec-type">Academic Evaluation</div>
+        <h4>KL University — Independent Academic Review</h4>
+        <p>
+          Dr. Sk. Hasane Ahammad, Department of Electronics and Communication Engineering,
+          independently evaluated the MDU Engine methodology and decision-support architecture.
+        </p>
+      </div>
+
+      <div class="recognition-card">
+        <div class="rec-type">Academic Commentary</div>
+        <h4>Eluru College of Engineering & Technology</h4>
+        <p>
+          Dr. S. Suresh, Professor and HOD, Computer Science Engineering,
+          provided independent academic commentary on MDU Engine's applied
+          decision-support design in noisy data environments.
+        </p>
+      </div>
+
+      <div class="recognition-card">
+        <div class="rec-type">Media Coverage</div>
+        <h4>TechStory — Rethinking Optimisation</h4>
+        <p>
+          Featured in TechStory for bringing structure to decision-making in
+          unstable data environments. Coverage focused on the decision-readiness
+          framework underlying MDU Engine.
+        </p>
+        <a href="https://techstory.in/rethinking-optimisation-how-satish-saka-is-bringing-structure-to-decision-making-in-unstable-data-environments/"
+           target="_blank" rel="noopener">Read Article →</a>
       </div>
     </div>
   </div>
@@ -105,7 +491,6 @@
         <p>Prefer deterministic, explainable logic with reproducible decision records.</p>
       </div>
     </div>
-
     <div class="callout">
       <h4>Who this is not for</h4>
       <p>
@@ -125,7 +510,6 @@
       or acting too late while losses compound.
       MDU Engine is intentionally conservative, explainable, and repeatable.
     </p>
-
     <div class="grid3">
       <div class="mini">
         <h3>Decision scenarios</h3>
@@ -156,7 +540,6 @@
 <section id="features" class="section alt">
   <div class="wrap">
     <h2>What ships next (without destabilising the engine)</h2>
-
     <div class="grid2">
       <div class="feature">
         <h3>Benchmarking (planned)</h3>
@@ -166,7 +549,6 @@
         </p>
         <div class="tag">Planned</div>
       </div>
-
       <div class="feature">
         <h3>Decision memory UI</h3>
         <p>
@@ -176,11 +558,10 @@
         <div class="tag">Shipping</div>
       </div>
     </div>
-
     <div class="callout">
       <h4>Stability over speed</h4>
       <p>
-        The landing page remains public at <strong>mduengine.com</strong>.  
+        The landing page remains public at <strong>mduengine.com</strong>.
         The decision engine operates independently at <strong>app.mduengine.com</strong>.
       </p>
     </div>
@@ -191,7 +572,6 @@
 <section id="trust" class="section">
   <div class="wrap">
     <h2>Trust, transparency, and safety by design.</h2>
-
     <div class="grid3">
       <div class="mini">
         <h3>Explainable outputs</h3>
@@ -215,7 +595,6 @@
         </p>
       </div>
     </div>
-
     <div class="callout">
       <h4>Product principles</h4>
       <p>
@@ -223,28 +602,132 @@
         Explicit refusal under uncertainty • Versioned and auditable outcomes
       </p>
     </div>
-
     <div class="cta center">
       <a class="btn primary" href="https://app.mduengine.com" target="_blank" rel="noreferrer">
         Launch App
       </a>
-
       <div class="cred-links">
         <span class="fine">Public documentation</span>
         <div class="cred-items">
-          <a href="/assets/MDU_How_It_Works_v1.pdf" target="_blank" rel="noopener">
-            How it works (PDF)
-          </a>
+          <a href="/assets/MDU_How_It_Works_v1.pdf" target="_blank" rel="noopener">How it works (PDF)</a>
           <span class="dot">•</span>
-          <a href="/assets/MDU_Audit_Sample_v1.pdf" target="_blank" rel="noopener">
-            Sample audit snapshot
-          </a>
+          <a href="/assets/MDU_Audit_Sample_v1.pdf" target="_blank" rel="noopener">Sample audit snapshot</a>
         </div>
       </div>
+      <a class="btn ghost" href="https://github.com/satishsaka661/mduengine-landing"
+         target="_blank" rel="noreferrer">View landing repository</a>
+    </div>
+  </div>
+</section>
 
-      <a class="btn ghost" href="https://github.com/satishsaka661/mduengine-landing" target="_blank" rel="noreferrer">
-        View landing repository
+<!-- TESTIMONIAL -->
+<section class="testimonial-section">
+  <div class="wrap">
+    <div class="testimonial-label">Operator Perspective</div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">
+        "Satish's contribution was not to improve our optimisation mechanics. It was to
+        introduce a layer of evaluation that sat between what we observed and what we decided
+        to do about it. He raised a question that we had not been asking systematically:
+        is this data sufficiently reliable and stable to justify intervention at all?
+        What he introduced was something categorically distinct — a structural interrogation
+        of whether the act of intervening was itself appropriate. To my knowledge, this is
+        not a common framework in performance marketing."
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">NM</div>
+        <div class="testimonial-author-info">
+          <strong>Naresh Mitta</strong>
+          <span>Managing Director & CEO — MyHub Technologies</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEDIA BADGE STRIP -->
+<section class="media-strip">
+  <div class="wrap">
+    <div class="media-strip-label">As seen in · Validated by · Published in</div>
+    <div class="media-badges">
+      <a href="https://techstory.in/rethinking-optimisation-how-satish-saka-is-bringing-structure-to-decision-making-in-unstable-data-environments/"
+         target="_blank" rel="noopener" class="media-badge">
+        <span class="badge-dot"></span>TechStory
       </a>
+      <span class="media-badge">
+        <span class="badge-dot green"></span>KL University — Academic Evaluation
+      </span>
+      <span class="media-badge">
+        <span class="badge-dot orange"></span>JETIR — Published Research
+      </span>
+      <span class="media-badge">
+        <span class="badge-dot amber"></span>Eluru College of Engineering
+      </span>
+      <a href="https://www.youtube.com/@decisionsystemswithsatish"
+         target="_blank" rel="noopener" class="media-badge">
+        <span class="badge-dot red"></span>YouTube · Decision Systems · 2.7K+
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder" class="founder">
+  <div class="wrap">
+    <div class="founder-inner">
+      <div class="founder-photo-wrap">
+        <img src="assets/satish-saka.jpg"
+             alt="Satish Saka — Founder, MDU Engine"
+             loading="lazy" />
+      </div>
+      <div class="founder-content">
+        <h2>Satish Saka</h2>
+        <div class="founder-title">
+          Founder · MDU Engine &nbsp;|&nbsp; Performance Marketing Strategist &nbsp;|&nbsp; MarTech Practitioner
+        </div>
+        <p class="founder-bio">
+          Satish Saka is a product founder and technology practitioner specialising in
+          decision-support systems for data-driven environments. With over six years of
+          experience in performance marketing, attribution architecture, and growth strategy
+          across India, Europe, Asia, and the US, he observed a consistent pattern: teams
+          acting on data that was not yet ready — introducing instability rather than resolving it.
+        </p>
+        <p class="founder-bio">
+          MDU Engine is the direct result of that observation. It introduces a structured
+          evaluation layer between data observation and optimisation action — helping
+          organisations assess whether their data is reliable enough to act on before any
+          intervention is made. His research on this framework is published in JETIR and has
+          received independent academic evaluation from KL University, Vijayawada.
+        </p>
+        <div class="founder-stats">
+          <div class="founder-stat">
+            <div class="stat-num">6+</div>
+            <div class="stat-label">Years in performance systems</div>
+          </div>
+          <div class="founder-stat">
+            <div class="stat-num">329M+</div>
+            <div class="stat-label">Impressions managed globally</div>
+          </div>
+          <div class="founder-stat">
+            <div class="stat-num">2.7K+</div>
+            <div class="stat-label">YouTube subscribers</div>
+          </div>
+          <div class="founder-stat">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Academic endorsements</div>
+          </div>
+        </div>
+        <div class="founder-links">
+          <a href="https://www.linkedin.com/in/satish-saka-954586192/"
+             target="_blank" rel="noopener" class="founder-link linkedin">LinkedIn Profile</a>
+          <a href="https://www.youtube.com/@decisionsystemswithsatish"
+             target="_blank" rel="noopener" class="founder-link youtube">YouTube Channel</a>
+          <a href="https://techstory.in/rethinking-optimisation-how-satish-saka-is-bringing-structure-to-decision-making-in-unstable-data-environments/"
+             target="_blank" rel="noopener" class="founder-link techstory">TechStory Feature</a>
+          <a href="https://www.jetir.org"
+             target="_blank" rel="noopener" class="founder-link research">Published Research</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -260,6 +743,7 @@
         <a href="https://app.mduengine.com" target="_blank" rel="noreferrer">App</a>
         <a href="#features">Features</a>
         <a href="#trust">Trust</a>
+        <a href="#founder">About</a>
       </div>
     </div>
     <div class="fine">© 2026 Satish Saka • MIT License</div>
