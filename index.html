@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MDU Engine — Decision Support for Paid Media</title>
-  <meta name="description" content="MDU Engine is a fail-closed decision-support system for paid media. Evaluate when to SCALE, HOLD, REDUCE, or BLOCK under uncertainty with explainable, auditable outputs." />
+  <title>MDU Engine — Know when your ad data can be trusted</title>
+  <meta name="description" content="MDU Engine builds decision tools for performance marketers: MDU Readiness checks whether your Meta ad account data is reliable enough for automated delivery, and the MDU Decision Engine tells you whether to scale, hold, reduce or block budget. Built by Satish Saka." />
   <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RM6RGSHRL0"></script>
 <script>
@@ -353,6 +353,53 @@
       .founder-stats { gap: 1.25rem; }
       .recognition-grid { grid-template-columns: 1fr; }
     }
+
+    /* ---------- redesign additions ---------- */
+    .products { padding: 64px 0; }
+    .product-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:22px; }
+    .product-card { background:rgba(18,26,42,.7); border:1px solid var(--line); border-radius:18px; padding:22px; display:flex; flex-direction:column; gap:12px; }
+    .product-card.featured { border-color:rgba(42,91,255,.55); background:linear-gradient(180deg, rgba(42,91,255,.10), rgba(18,26,42,.7)); }
+    .product-head { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+    .product-card h3 { margin:0; font-size:22px; }
+    .status { font-size:12px; padding:4px 10px; border-radius:999px; border:1px solid rgba(19,196,163,.4); color:#b7fff1; background:rgba(19,196,163,.08); }
+    .product-q { margin:0; font-size:16px; font-weight:600; color:var(--text); }
+    .product-card p { margin:0; color:var(--muted); line-height:1.6; }
+    .product-card ul { margin:0; padding-left:18px; color:var(--muted); line-height:1.7; }
+    .product-meta { font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:12px; margin-top:auto; }
+    .product-card .cta { margin:4px 0 0; }
+    .soon { margin-top:16px; font-size:14px; color:var(--muted); }
+
+    .results { padding: 56px 0; }
+    .results-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:22px; }
+    .result { background:rgba(18,26,42,.55); border:1px solid var(--line); border-radius:16px; padding:18px; }
+    .result-num { font-size:30px; font-weight:800; letter-spacing:-0.5px; }
+    .result-label { color:var(--muted); font-size:14px; line-height:1.5; margin-top:4px; }
+
+    .steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:18px; counter-reset:step; }
+    .step { background:rgba(18,26,42,.55); border:1px solid var(--line); border-radius:18px; padding:16px; }
+    .step h3 { margin:0 0 8px; font-size:16px; }
+    .step h3::before { counter-increment:step; content:counter(step) ". "; color:#7A9BC0; }
+    .step p { margin:0; color:var(--muted); line-height:1.6; }
+
+    .contact { padding:64px 0; }
+    .contact-card { border:1px solid rgba(42,91,255,.35); background:rgba(42,91,255,.08); border-radius:18px; padding:26px; display:grid; grid-template-columns:1.3fr 1fr; gap:22px; align-items:center; }
+    .contact-card h2 { margin:0 0 8px; }
+    .contact-card p { margin:0; color:var(--muted); line-height:1.7; }
+    .contact-list { display:flex; flex-direction:column; gap:10px; }
+    .contact-list a { display:block; padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:rgba(18,26,42,.6); }
+    .contact-list a:hover { border-color:rgba(42,91,255,.55); }
+    .contact-list span { display:block; font-size:12px; color:var(--muted); }
+
+    .footlegal { display:flex; gap:14px; flex-wrap:wrap; margin-top:10px; }
+    .footlegal a { color:var(--muted); font-size:13px; }
+    .footlegal a:hover { color:var(--text); }
+
+    @media (max-width: 900px){
+      .product-grid, .contact-card { grid-template-columns:1fr; }
+      .results-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .steps { grid-template-columns:1fr; }
+      .navlinks a:not(.btn){ display:none; }
+    }
   </style>
 </head>
 
@@ -361,13 +408,14 @@
 <header class="top">
   <div class="wrap nav">
     <div class="brand">MDU Engine</div>
-    <div class="navlinks">
-      <a href="#product">Product</a>
-      <a href="#features">Features</a>
-      <a href="#trust">Trust</a>
+    <nav class="navlinks" aria-label="Main">
+      <a href="#products">Products</a>
+      <a href="#how">How it works</a>
+      <a href="#proof">Research</a>
       <a href="#founder">About</a>
-      <a class="btn" href="https://app.mduengine.com" target="_blank" rel="noreferrer">Launch App</a>
-    </div>
+      <a href="#contact">Contact</a>
+      <a class="btn" href="https://readiness.mduengine.com" target="_blank" rel="noreferrer">Free signal check</a>
+    </nav>
   </div>
 </header>
 
@@ -377,41 +425,131 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="pill">Decision-support • Fail-closed by design • Explainable • Risk-aware</div>
-      <h1>Decision-support for paid media under uncertainty.</h1>
+      <div class="pill">Decision tools for performance marketers · Read-only · Explainable</div>
+      <h1>Know when your ad data can be trusted, before you spend.</h1>
       <p class="sub">
-        Upload Meta & Google exports, validate signal quality, and receive a clear
-        <strong>decision outcome</strong> — <strong>SCALE / HOLD / REDUCE / BLOCK</strong> —
-        with structured rationale, guardrails, and an audit snapshot.
+        Automated campaigns are only as good as the signal you feed them. MDU Engine builds tools
+        that check whether your data is reliable enough to act on, and tell you plainly when it isn't:
+        <strong>MDU Readiness</strong> for Meta ad accounts, and the <strong>MDU Decision Engine</strong>
+        for scale, hold, reduce or block decisions.
       </p>
       <div class="cta">
-        <a class="btn primary" href="https://app.mduengine.com" target="_blank" rel="noreferrer">
-          Open Decision Engine
-        </a>
-        <a class="btn ghost" href="#product">See how it works</a>
+        <a class="btn primary" href="https://readiness.mduengine.com" target="_blank" rel="noreferrer">Run a free signal check</a>
+        <a class="btn ghost" href="https://app.mduengine.com" target="_blank" rel="noreferrer">Open Decision Engine</a>
       </div>
       <div class="fine">
-        Built by Satish Saka • Public Decision Engine • MIT License • Asia-South1
+        Built by Satish Saka · 7+ years in performance marketing · Research published in JETIR
       </div>
     </div>
-
     <div class="card">
-      <h3>What MDU Engine does</h3>
+      <h3>The four questions we check</h3>
       <ul>
-        <li><strong>Validates</strong> whether your data window is decision-ready (typically 7–30 days).</li>
-        <li><strong>Normalizes</strong> exports into an engine-ready daily schema.</li>
-        <li><strong>Evaluates</strong> outcomes under downside-risk and uncertainty constraints.</li>
-        <li><strong>Explains</strong> every decision outcome and explicitly blocks unsafe action.</li>
-        <li><strong>Logs</strong> a reproducible audit snapshot (versions, thresholds, outcome).</li>
+        <li><strong>Sufficiency:</strong> is there enough conversion volume (around 50 a week) for the algorithm to learn?</li>
+        <li><strong>Stability:</strong> does it hold day to day, or swing between great and dead days?</li>
+        <li><strong>Consistency:</strong> are there days with real traffic but zero conversions, the sign of broken tracking?</li>
+        <li><strong>Downside:</strong> how much spend sat on days the data couldn't be trusted?</li>
       </ul>
       <div class="note">
-        MDU Engine provides guidance only. All decisions remain the responsibility of the operator.
-        The system does not execute changes or provide financial or investment advice.
+        Guidance only. Both tools are read-only: they never change campaigns or spend budget,
+        and all decisions stay with the advertiser.
       </div>
     </div>
   </div>
 </section>
 
+<!-- PRODUCTS -->
+<section id="products" class="products">
+  <div class="wrap">
+    <h2>Two products, one principle: don't act on data that isn't ready.</h2>
+    <p class="lead">Use Readiness before you hand budget to automation. Use the Decision Engine when you're deciding what to do with budget you're already spending.</p>
+    <div class="product-grid">
+
+      <article class="product-card featured">
+        <div class="product-head">
+          <h3>MDU Readiness</h3>
+          <span class="status">Live · Meta Ads</span>
+        </div>
+        <p class="product-q">"Is my account ready to trust Advantage+ with this budget?"</p>
+        <p>Connect a Meta ad account (read-only) and get a verdict in about 30 seconds: Ready, Hold, Not ready, or Not enough data, with the reason and what to fix.</p>
+        <ul>
+          <li>Judges the account on its real conversion: purchases, leads or registrations</li>
+          <li>Four signal scores plus the spend at risk</li>
+          <li>Flags ad sets that split volume too thin to leave the learning phase</li>
+          <li>Delete your data any time</li>
+        </ul>
+        <div class="product-meta">First check free · credit packs from $19 · checks without enough data are never charged</div>
+        <div class="cta">
+          <a class="btn primary" href="https://readiness.mduengine.com" target="_blank" rel="noreferrer">Run a free check</a>
+        </div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-head">
+          <h3>MDU Decision Engine</h3>
+          <span class="status">Live · Meta &amp; Google exports</span>
+        </div>
+        <p class="product-q">"Should I scale this, hold it, reduce it, or stop?"</p>
+        <p>Upload Meta or Google Ads exports and get a decision outcome, <strong>SCALE / HOLD / REDUCE / BLOCK</strong>, with the rationale, the guardrails applied, and an audit snapshot.</p>
+        <ul>
+          <li>Validates whether the data window is decision-ready</li>
+          <li>Evaluates outcomes under downside-risk constraints</li>
+          <li>Explicitly blocks unsafe action instead of guessing</li>
+          <li>Logs a reproducible audit snapshot of every run</li>
+        </ul>
+        <div class="product-meta">
+          <a href="/assets/MDU_How_It_Works_v1.pdf" target="_blank" rel="noopener">How it works (PDF)</a> ·
+          <a href="/assets/MDU_Audit_Sample_v1.pdf" target="_blank" rel="noopener">Sample audit snapshot (PDF)</a>
+        </div>
+        <div class="cta">
+          <a class="btn ghost" href="https://app.mduengine.com" target="_blank" rel="noreferrer">Open Decision Engine</a>
+        </div>
+      </article>
+
+    </div>
+    <p class="soon">Coming next: Google Ads support in MDU Readiness.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="section alt">
+  <div class="wrap">
+    <h2>How a Readiness check works</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>Connect, read-only</h3>
+        <p>Log in with Meta and pick an ad account. We only request permission to read reports; we can't change anything.</p>
+      </div>
+      <div class="step">
+        <h3>We check the signal</h3>
+        <p>Daily spend, conversions and clicks are scored on sufficiency, stability, consistency and downside, plus ad set fragmentation.</p>
+      </div>
+      <div class="step">
+        <h3>You get a verdict</h3>
+        <p>A plain answer, the reason behind it, and the specific fix. The report data isn't stored after the check.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <h4>Who it's for</h4>
+      <p>Performance marketers, in-house growth teams and agencies who want a defensible reason before they scale, and founders or finance teams who want to know whether the numbers behind a budget decision can be trusted.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK RECORD -->
+<section class="results">
+  <div class="wrap">
+    <h2>Built by a practitioner, not a dashboard vendor.</h2>
+    <p class="lead">These tools come from 7+ years of running performance marketing for e-commerce and lead generation across India, the DACH region and international markets.</p>
+    <div class="results-grid">
+      <div class="result"><div class="result-num">4.2x</div><div class="result-label">ROAS delivered on 7-figure budgets</div></div>
+      <div class="result"><div class="result-num">+40%</div><div class="result-label">online sales from international expansion</div></div>
+      <div class="result"><div class="result-num">−20%</div><div class="result-label">cost per acquisition</div></div>
+      <div class="result"><div class="result-num">329M+</div><div class="result-label">impressions managed globally</div></div>
+    </div>
+  </div>
+</section>
+
+<div id="proof"></div>
 <!-- RECOGNITION -->
 <section class="recognition">
   <div class="wrap">
@@ -487,173 +625,6 @@
   </div>
 </section>
 
-<!-- PROBLEM -->
-<section class="problem section">
-  <div class="wrap">
-    <h2>The problem MDU Engine addresses</h2>
-    <p class="lead">
-      Capital allocation decisions in high-variance environments are often made on unstable,
-      incomplete, or noisy signals.
-    </p>
-    <p>
-      Optimisation systems tend to push action without making uncertainty, downside risk,
-      or decision irreversibility explicit. This leads to premature scaling, difficult-to-reverse
-      budget changes, and weak accountability when outcomes degrade.
-    </p>
-  </div>
-</section>
-
-<!-- AUDIENCE -->
-<section class="audience section alt">
-  <div class="wrap">
-    <h2>Who MDU Engine is for</h2>
-    <div class="grid2">
-      <div class="mini">
-        <h3>Business owners & founders</h3>
-        <p>Protect capital when mistakes are costly and signals are noisy.</p>
-      </div>
-      <div class="mini">
-        <h3>CFO & finance teams</h3>
-        <p>Add governance, loss-protection, and auditability to media spend decisions.</p>
-      </div>
-      <div class="mini">
-        <h3>Analysts & growth operators</h3>
-        <p>Work with explicit confidence tiers and rationale instead of dashboard pressure.</p>
-      </div>
-      <div class="mini">
-        <h3>Technical teams</h3>
-        <p>Prefer deterministic, explainable logic with reproducible decision records.</p>
-      </div>
-    </div>
-    <div class="callout">
-      <h4>Who this is not for</h4>
-      <p>
-        Automated optimisation • novice experimentation • growth hacks •
-        execution-first systems without risk governance
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUCT -->
-<section id="product" class="section">
-  <div class="wrap">
-    <h2>From instinct to defensible decisions.</h2>
-    <p class="lead">
-      Most paid media failures come from reacting too quickly to noise,
-      or acting too late while losses compound.
-      MDU Engine is intentionally conservative, explainable, and repeatable.
-    </p>
-    <div class="grid3">
-      <div class="mini">
-        <h3>Decision scenarios</h3>
-        <p>
-          Explicit conditions such as insufficient data windows, unstable signals,
-          volatility spikes, or negative value drift — each mapped to a consistent outcome.
-        </p>
-      </div>
-      <div class="mini">
-        <h3>Loss-protection gates</h3>
-        <p>
-          Safety rails that block decisions when downside risk dominates or
-          confidence thresholds are not met. Defaults to restraint.
-        </p>
-      </div>
-      <div class="mini">
-        <h3>Signal quality indicator</h3>
-        <p>
-          A single quality indicator reflecting data sufficiency and stability
-          — not an optimisation score or performance promise.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section id="features" class="section alt">
-  <div class="wrap">
-    <h2>What ships next (without destabilising the engine)</h2>
-    <div class="grid2">
-      <div class="feature">
-        <h3>Benchmarking (planned)</h3>
-        <p>
-          Start with a simple baseline: compare current behaviour to your own
-          trailing period and flag abnormal variance.
-        </p>
-        <div class="tag">Planned</div>
-      </div>
-      <div class="feature">
-        <h3>Decision memory UI</h3>
-        <p>
-          A decision history panel showing recent runs, inputs, versions,
-          outcomes, and explanation trails — built for audit and review.
-        </p>
-        <div class="tag">Shipping</div>
-      </div>
-    </div>
-    <div class="callout">
-      <h4>Stability over speed</h4>
-      <p>
-        The landing page remains public at <strong>mduengine.com</strong>.
-        The decision engine operates independently at <strong>app.mduengine.com</strong>.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- TRUST -->
-<section id="trust" class="section">
-  <div class="wrap">
-    <h2>Trust, transparency, and safety by design.</h2>
-    <div class="grid3">
-      <div class="mini">
-        <h3>Explainable outputs</h3>
-        <p>
-          No black-box advice. Every outcome includes the primary constraint,
-          supporting factors, and confidence assessment.
-        </p>
-      </div>
-      <div class="mini">
-        <h3>Validation gates</h3>
-        <p>
-          Decisions are blocked when data is insufficient, unstable,
-          or fails defined safety thresholds.
-        </p>
-      </div>
-      <div class="mini">
-        <h3>Audit snapshot</h3>
-        <p>
-          Each run records versions, thresholds, data window, and outcome
-          for reproducibility and review.
-        </p>
-      </div>
-    </div>
-    <div class="callout">
-      <h4>Product principles</h4>
-      <p>
-        Loss-first decisions • Explainability over persuasion • Human-in-the-loop •
-        Explicit refusal under uncertainty • Versioned and auditable outcomes
-      </p>
-    </div>
-    <div class="cta center">
-      <a class="btn primary" href="https://app.mduengine.com" target="_blank" rel="noreferrer">
-        Launch App
-      </a>
-      <div class="cred-links">
-        <span class="fine">Public documentation</span>
-        <div class="cred-items">
-          <a href="/assets/MDU_How_It_Works_v1.pdf" target="_blank" rel="noopener">How it works (PDF)</a>
-          <span class="dot">•</span>
-          <a href="/assets/MDU_Audit_Sample_v1.pdf" target="_blank" rel="noopener">Sample audit snapshot</a>
-        </div>
-      </div>
-      <a class="btn ghost" href="https://github.com/satishsaka661/mduengine-landing"
-         target="_blank" rel="noreferrer">View landing repository</a>
-    </div>
-  </div>
-</section>
-
 <!-- TESTIMONIAL -->
 <section class="testimonial-section">
   <div class="wrap">
@@ -725,11 +696,11 @@
       <div class="founder-content">
         <h2>Satish Saka</h2>
         <div class="founder-title">
-          Founder · MDU Engine &nbsp;|&nbsp; Performance Marketing Strategist &nbsp;|&nbsp; MarTech Practitioner
+          Founder · MDU Engine &nbsp;|&nbsp; Performance Marketing &amp; MarTech Specialist
         </div>
         <p class="founder-bio">
           Satish Saka is a product founder and technology practitioner specialising in
-          decision-support systems for data-driven environments. With over six years of
+          decision-support systems for data-driven environments. With over seven years of
           experience in performance marketing, attribution architecture, and growth strategy
           across India, Europe, Asia, and the US, he observed a consistent pattern: teams
           acting on data that was not yet ready — introducing instability rather than resolving it.
@@ -738,12 +709,14 @@
           MDU Engine is the direct result of that observation. It introduces a structured
           evaluation layer between data observation and optimisation action — helping
           organisations assess whether their data is reliable enough to act on before any
-          intervention is made. His research on this framework is published in JETIR and has
+          intervention is made. MDU Readiness brings the same thinking to Meta ad accounts:
+          a read-only check of whether the conversion signal is strong enough to trust
+          automated delivery. His research on this framework is published in JETIR and has
           received independent academic evaluation from KL University, Vijayawada.
         </p>
         <div class="founder-stats">
           <div class="founder-stat">
-            <div class="stat-num">6+</div>
+            <div class="stat-num">7+</div>
             <div class="stat-label">Years in performance systems</div>
           </div>
           <div class="founder-stat">
@@ -774,24 +747,47 @@
   </div>
 </section>
 
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="contact-card">
+      <div>
+        <h2>Let's talk</h2>
+        <p>Running ads for clients or your own brand? I'm looking for agencies and in-house teams to pilot MDU Readiness on live accounts, and I'm open to consulting and collaboration on performance marketing and MarTech.</p>
+      </div>
+      <div class="contact-list">
+        <a href="mailto:satish@mduengine.com?subject=MDU%20Engine%20enquiry">satish@mduengine.com<span>Pilots, consulting, partnerships</span></a>
+        <a href="https://www.linkedin.com/in/satish-saka-954586192/" target="_blank" rel="noopener">LinkedIn<span>Satish Saka</span></a>
+        <a href="https://www.youtube.com/@decisionsystemswithsatish" target="_blank" rel="noopener">YouTube<span>Decision Systems with Satish</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer class="footer">
   <div class="wrap">
     <div class="footgrid">
       <div>
         <div class="brand small">MDU Engine</div>
-        <div class="fine">Decision support for paid media • Built for repeatability</div>
+        <div class="fine">Decision tools for performance marketers</div>
       </div>
       <div class="footlinks">
-        <a href="https://app.mduengine.com" target="_blank" rel="noreferrer">App</a>
-        <a href="#features">Features</a>
-        <a href="#trust">Trust</a>
+        <a href="https://readiness.mduengine.com" target="_blank" rel="noreferrer">MDU Readiness</a>
+        <a href="https://app.mduengine.com" target="_blank" rel="noreferrer">Decision Engine</a>
         <a href="#founder">About</a>
+        <a href="#contact">Contact</a>
       </div>
     </div>
-    <div class="fine">© 2026 Satish Saka • MIT License</div>
+    <div class="footlegal">
+      <a href="https://readiness.mduengine.com/privacy" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://readiness.mduengine.com/terms" target="_blank" rel="noopener">Terms</a>
+      <a href="https://readiness.mduengine.com/refund" target="_blank" rel="noopener">Refunds</a>
+      <a href="https://readiness.mduengine.com/data-deletion" target="_blank" rel="noopener">Delete your data</a>
+    </div>
+    <div class="fine" style="margin-top:10px;">© 2026 Satish Saka, trading as MDU Engine · Guidance only; all decisions remain with the advertiser.</div>
   </div>
 </footer>
-
 </main>
 </body>
 </html>
