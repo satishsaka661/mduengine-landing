@@ -400,7 +400,14 @@
       .steps { grid-template-columns:1fr; }
       .navlinks a:not(.btn){ display:none; }
     }
-  </style>
+      /* Button and link hover states */
+    .btn{transition:transform .12s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease, color .15s ease; cursor:pointer;}
+    .btn:hover{transform:translateY(-1px); border-color:#6a7cff; background:rgba(42,91,255,.14); box-shadow:0 6px 18px rgba(42,91,255,.25);}
+    .btn.primary:hover{background:linear-gradient(135deg,#4a74ff,#8191ff); box-shadow:0 8px 22px rgba(42,91,255,.45);}
+    .btn:focus-visible{outline:2px solid #8191ff; outline-offset:2px;}
+    .product-meta a{color:#8fa6ff; text-decoration:none; border-bottom:1px dashed rgba(143,166,255,.5);}
+    .product-meta a:hover{color:#fff; border-bottom-color:#fff;}
+</style>
 </head>
 
 <body>
